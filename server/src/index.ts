@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import { Env } from '@config/env.config';
 import { connectDatabase } from '@config/db.config';
+import { errorHandler } from '@middlewares/error-handler.middleware';
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.get(`/`, (_req: Request, res: Response) => {
     message: 'Healthy server',
   });
 });
+
+app.use(errorHandler);
 
 app.listen(Env.PORT, async () => {
   console.log(
